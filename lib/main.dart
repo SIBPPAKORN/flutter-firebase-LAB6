@@ -28,3 +28,28 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
+{
+ @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: TabBarView(
+          children: [
+            FormScreen(),
+            DisplayScreen()
+          ]
+          ),
+          backgroundColor: Colors.orange,
+          bottomNavigationBar: TabBar(
+            tabs: [
+              Tab(text: "บันทึกการออม",),
+              Tab(text: "รายการ",)
+            ],
+            ),
+      ),
+      );
+  }
+}
+
