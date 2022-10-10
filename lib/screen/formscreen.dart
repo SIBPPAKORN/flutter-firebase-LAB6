@@ -11,7 +11,8 @@ class _FormScreenState extends State<FormScreen> {
   final formKey = GlobalKey<FormState>();
   Money myMoney = Money();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-  CollectionReference _moneyCollection = FirebaseFirestore.instance.collection("Money");
+  CollectionReference _moneyCollection =
+      FirebaseFirestore.instance.collection("Money");
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class _FormScreenState extends State<FormScreen> {
                           onSaved: (String name) {
                             myMoney.name = name;
                           },
-),
+                        ),
                         SizedBox(
                           height: 15,
                         ),
@@ -104,3 +105,31 @@ class _FormScreenState extends State<FormScreen> {
                                 "บันทึกข้อมูล",
                                 style: TextStyle(fontSize: 20),
                               ),
+                              onPressed: () async {
+                                if (formKey.currentState.validate()) {
+                                  formKey.currentState.save();
+                                  await _moneyCollection.add({
+                                    "name": myMoney.name,
+                                    "revenue": myMoney.revenue,
+                                    "expenses": myMoney.expenses,
+                                    "remain": myMoney.remain
+                                  });
+                                  formKey.currentState.reset();
+                                }
+                              }),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
+  }
+}
