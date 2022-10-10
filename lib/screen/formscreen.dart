@@ -33,4 +33,22 @@ class _FormScreenState extends State<FormScreen> {
               appBar: AppBar(
                 title: Text("แบบฟอร์มรายการ"),
               ),
+              body: Container(
+                padding: EdgeInsets.all(20),
+                child: Form(
+                  key: formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "รายการ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator:
+                              RequiredValidator(errorText: "กรุณาใส่รายการ"),
+                          onSaved: (String name) {
+                            myMoney.name = name;
+                          },
 
