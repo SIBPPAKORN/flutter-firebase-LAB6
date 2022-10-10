@@ -1,1 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+class DisplayScreen extends StatefulWidget {
+  const DisplayScreen({Key key}) : super(key: key);
+
+  @override
+  State<DisplayScreen> createState() => _DisplayScreenState();
+}
+
+class _DisplayScreenState extends State<DisplayScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("รายงานการออม")),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("Money").snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView(
+            children: snapshot.data.docs.map((document) {
+              return Container(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: FittedBox(child: Text(document["remain"])),
+                  ),
+                  title: Text(document["name"] + document["revenue"]),
+                  subtitle: Text(document["expenses"]),
+                ),
+              );
+            }).toList(),
+          );
+        },
+      ),
+    );
+  }
+}
