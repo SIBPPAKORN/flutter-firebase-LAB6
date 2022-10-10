@@ -13,3 +13,24 @@ class _FormScreenState extends State<FormScreen> {
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   CollectionReference _moneyCollection = FirebaseFirestore.instance.collection("Money");
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: firebase,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text("Error"),
+              ),
+              body: Center(
+                child: Text("${snapshot.error}"),
+              ),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text("แบบฟอร์มรายการ"),
+              ),
+
