@@ -51,4 +51,56 @@ class _FormScreenState extends State<FormScreen> {
                           onSaved: (String name) {
                             myMoney.name = name;
                           },
-
+),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "รายรับ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator:
+                              RequiredValidator(errorText: "กรุณาใส่รายรับ"),
+                          onSaved: (String revenue) {
+                            myMoney.revenue = revenue;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "รายจ่าย",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator:
+                              RequiredValidator(errorText: "กรุณาใส่รายจ่าย"),
+                          onSaved: (String expenses) {
+                            myMoney.expenses = expenses;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "คงเหลือ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator: RequiredValidator(
+                              errorText: "กรุณาใส่ยอดคงเหลือ"),
+                          onSaved: (String remain) {
+                            myMoney.remain = remain;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              child: Text(
+                                "บันทึกข้อมูล",
+                                style: TextStyle(fontSize: 20),
+                              ),
